@@ -1,0 +1,22 @@
+{
+    "contatoTeste": {
+        "nome": "Contato de Teste",
+        "telefone": "11999999999"
+    },
+    "contatoEdicao": {
+        "nome": "Contato para Editar",
+        "telefone": "11888888888"
+    },
+    "contatoEditado": {
+        "nome": "Contato Editado",
+        "telefone": "11777777777"
+    },
+    "contatoRemocao": {
+        "nome": "Contato a Remover",
+        "telefone": "11666666666"
+    },
+    "contatoInvalido": {
+        "nome": "",
+        "telefone": "123"
+    }
+}
