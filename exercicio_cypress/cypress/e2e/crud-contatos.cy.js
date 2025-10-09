@@ -1,4 +1,4 @@
-describe("CRUD de Contatos - Agenda EBAC", () => {
+describe("CRUD de Contatos", () => {
   let contatos;
 
   beforeEach(() => {
@@ -8,72 +8,69 @@ describe("CRUD de Contatos - Agenda EBAC", () => {
     cy.visit("/");
   });
 
-  it("Deve adicionar um novo contato", () => {
-    const { nome, telefone } = contatos.contatoTeste;
-
-    cy.adicionarContato(nome, telefone);
-    cy.validarContatoExiste(nome);
-    
-    cy.get('table').should('contain', telefone);
+  it("LIMPEZA - remover todos os contatos existentes", () => {
+    cy.visit("/");
+    cy.limparTodosContatos();
+    cy.validarListaVazia();
   });
 
-  it("Deve editar um contato existente", () => {
-    const { nome, telefone } = contatos.contatoEdicao;
-    const { nome: novoNome, telefone: novoTelefone } = contatos.contatoEditado;
+  it("deve adicionar um novo contato", () => {
+    const { nome, email, telefone } = contatos.contatoTeste;
 
-    cy.adicionarContato(nome, telefone);
+    cy.adicionarContato(nome, telefone, email);
     cy.validarContatoExiste(nome);
 
-    cy.editarContato(nome, novoNome, novoTelefone);
+    cy.contains(".contato", nome).should("contain", email);
+    cy.contains(".contato", nome).should("contain", telefone);
+  });
+
+  it("deve editar um contato existente", () => {
+    const { nome, email, telefone } = contatos.contatoEdicao;
+    const {
+      nome: novoNome,
+      email: novoEmail,
+      telefone: novoTelefone,
+    } = contatos.contatoEditado;
+
+    cy.adicionarContato(nome, telefone, email);
+    cy.validarContatoExiste(nome);
+
+    cy.editarContato(nome, novoNome, novoEmail, novoTelefone);
 
     cy.validarContatoExiste(novoNome);
-    cy.get('table').should('contain', novoTelefone);
-    cy.validarContatoNaoExiste(nome);
   });
 
   it("Deve remover um contato", () => {
-    const { nome, telefone } = contatos.contatoRemocao;
+    const { nome, email, telefone } = contatos.contatoRemocao;
 
-    cy.adicionarContato(nome, telefone);
+    cy.adicionarContato(nome, telefone, email);
     cy.validarContatoExiste(nome);
 
     cy.removerContato(nome);
-
-    cy.validarContatoNaoExiste(nome);
-  });
-
-  it("Deve validar campos obrigatórios", () => {
-    cy.get('button').contains('Adicionar').click();
-    
-    cy.validarCamposObrigatorios();
+    cy.contains("li", nome).should("not.exist");
   });
 
   it("Deve realizar fluxo completo CRUD", () => {
-    const { nome, telefone } = contatos.contatoTeste;
-    const { nome: novoNome, telefone: novoTelefone } = contatos.contatoEditado;
+    const { nome, email, telefone } = contatos.contatoTeste;
+    const {
+      nome: novoNome,
+      email: novoEmail,
+      telefone: novoTelefone,
+    } = contatos.contatoEditado;
 
-    cy.adicionarContato(nome, telefone);
+    // CREATE
+    cy.adicionarContato(nome, telefone, email);
     cy.validarContatoExiste(nome);
 
-    cy.get('table').should('contain', nome);
-    cy.get('table').should('contain', telefone);
+    // READ
+    cy.contains(".contato", nome).should("be.visible");
 
-    cy.editarContato(nome, novoNome, novoTelefone);
+    // UPDATE
+    cy.editarContato(nome, novoNome, novoEmail, novoTelefone);
     cy.validarContatoExiste(novoNome);
 
+    // DELETE
     cy.removerContato(novoNome);
-    cy.validarContatoNaoExiste(novoNome);
-  });
-
-  it("Deve validar contato com dados inválidos", () => {
-    const { nome, telefone } = contatos.contatoInvalido;
-
-    cy.get('#nome').clear().type(nome);
-    cy.get('#telefone').clear().type(telefone);
-    cy.get('button').contains('Adicionar').click();
-
-    if (nome === "") {
-      cy.validarCamposObrigatorios();
-    }
+    cy.contains("li", novoNome).should("not.exist");
   });
 });

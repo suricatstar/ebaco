@@ -1,22 +1,27 @@
 {
     "contatoTeste": {
         "nome": "Contato de Teste",
+        "email": "teste@exemplo.com",
         "telefone": "11999999999"
     },
     "contatoEdicao": {
         "nome": "Contato para Editar",
+        "email": "editar@exemplo.com",
         "telefone": "11888888888"
     },
     "contatoEditado": {
         "nome": "Contato Editado",
+        "email": "editado@exemplo.com",
         "telefone": "11777777777"
     },
     "contatoRemocao": {
         "nome": "Contato a Remover",
+        "email": "remover@exemplo.com",
         "telefone": "11666666666"
     },
     "contatoInvalido": {
         "nome": "",
+        "email": "invalido",
         "telefone": "123"
     }
 }

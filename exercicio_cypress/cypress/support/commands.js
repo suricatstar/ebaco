@@ -1,43 +1,58 @@
-// Comando para adicionar contato (apenas nome e telefone)
-Cypress.Commands.add("adicionarContato", (nome, telefone) => {
-  cy.get('#nome').clear().type(nome);
-  cy.get('#telefone').clear().type(telefone);
-  cy.get('button').contains('Cadastrar').click();
+// Comando para adicionar contato
+Cypress.Commands.add("adicionarContato", (nome, telefone, email) => {
+  cy.get('input[placeholder="Nome"]').clear().type(nome);
+  cy.get('input[placeholder="E-mail"]').clear().type(email);
+  cy.get('input[placeholder="Telefone"]').clear().type(telefone);
+  cy.get(".adicionar").click();
 });
 
-// Comando para validar se contato existe na tabela
+// Comando para validar se contato existe
 Cypress.Commands.add("validarContatoExiste", (nome) => {
-  cy.get('table').should('contain', nome);
+  cy.get(".contato").should("contain", nome);
 });
 
 // Comando para editar contato
-Cypress.Commands.add("editarContato", (nomeOriginal, novoNome, novoTelefone) => {
-  // Procura pela linha da tabela que contém o nome original
-  cy.contains('tr', nomeOriginal).within(() => {
-    cy.get('button').contains('Editar').click();
-  });
+Cypress.Commands.add(
+  "editarContato",
+  (nomeOriginal, novoNome, novoEmail, novoTelefone) => {
+    cy.contains(".contato", nomeOriginal).within(() => {
+      cy.get(".edit").click();
+    });
 
-  // Preenche os novos dados
-  cy.get('#nome').clear().type(novoNome);
-  cy.get('#telefone').clear().type(novoTelefone);
-  cy.get('button').contains('Alterar').click();
-});
+    cy.get('input[placeholder="Nome"]').clear().type(novoNome);
+    cy.get('input[placeholder="E-mail"]').clear().type(novoEmail);
+    cy.get('input[placeholder="Telefone"]').clear().type(novoTelefone);
+    cy.get(".alterar").click();
+  }
+);
 
 // Comando para remover contato
 Cypress.Commands.add("removerContato", (nome) => {
-  // Procura pela linha da tabela que contém o nome
-  cy.contains('tr', nome).within(() => {
-    cy.get('button').contains('Excluir').click();
+  cy.contains('.contato', nome).should('exist');
+
+  cy.contains(".contato", nome).within(() => {
+    cy.get(".delete").click();
+  });
+
+  cy.wait(500);
+
+  cy.contains('li', nome).should('not.exist');
+});
+
+// Comando para limpar todos os contatos
+Cypress.Commands.add("limparTodosContatos", () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('.contato').length > 0) {
+      cy.get('.contato').each(($contato) => {
+        cy.wrap($contato).within(() => {
+          cy.get('.delete').click();
+        });
+      });
+    }
   });
 });
 
-// Comando para validar que contato não existe mais
-Cypress.Commands.add("validarContatoNaoExiste", (nome) => {
-  cy.get('table').should('not.contain', nome);
-});
-
-// Comando para validar campos obrigatórios
-Cypress.Commands.add("validarCamposObrigatorios", () => {
-  cy.get('#nome').should('be.visible');
-  cy.get('#telefone').should('be.visible');
+// Comando para validar que não há contatos
+Cypress.Commands.add("validarListaVazia", () => {
+  cy.get('.contato').should('not.exist');
 });
