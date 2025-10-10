@@ -1,27 +1,61 @@
 {
     "contatoTeste": {
-        "nome": "Contato de Teste",
-        "email": "teste@exemplo.com",
-        "telefone": "11999999999"
+        "nome": "João Silva",
+        "email": "joao.silva@gmail.com",
+        "telefone": "(11) 99876-5432"
     },
     "contatoEdicao": {
-        "nome": "Contato para Editar",
-        "email": "editar@exemplo.com",
-        "telefone": "11888888888"
+        "nome": "Maria Santos",
+        "email": "maria.santos@hotmail.com",
+        "telefone": "(21) 98765-4321"
     },
     "contatoEditado": {
-        "nome": "Contato Editado",
-        "email": "editado@exemplo.com",
-        "telefone": "11777777777"
+        "nome": "Maria Santos Oliveira",
+        "email": "maria.oliveira@outlook.com",
+        "telefone": "(21) 99123-4567"
     },
     "contatoRemocao": {
-        "nome": "Contato a Remover",
-        "email": "remover@exemplo.com",
-        "telefone": "11666666666"
+        "nome": "Pedro Costa",
+        "email": "pedro.costa@yahoo.com.br",
+        "telefone": "(31) 97654-3210"
     },
     "contatoInvalido": {
         "nome": "",
-        "email": "invalido",
+        "email": "email-invalido",
         "telefone": "123"
+    },
+    "contatosMultiplos": {
+        "contato1": {
+            "nome": "Ana Beatriz",
+            "email": "ana.beatriz@empresa.com",
+            "telefone": "(41) 96543-2109"
+        },
+        "contato2": {
+            "nome": "Carlos Eduardo",
+            "email": "carlos.eduardo@gmail.com",
+            "telefone": "(51) 95432-1098"
+        },
+        "contato3": {
+            "nome": "Fernanda Lima",
+            "email": "fernanda.lima@outlook.com",
+            "telefone": "(61) 94321-0987"
+        }
+    },
+    "contatosEspeciais": {
+        "nomeGrande": {
+            "nome": "José Roberto da Silva Santos Oliveira",
+            "email": "jose.roberto.santos@longdominio.com.br",
+            "telefone": "(85) 93210-9876"
+        },
+        "caracteresEspeciais": {
+            "nome": "André São João",
+            "email": "andre.sao.joao@ção.com.br",
+            "telefone": "(27) 92109-8765"
+        },
+        "numerosDiferentes": {
+            "nome": "Luciana Pereira",
+            "email": "luciana.pereira@teste.org",
+            "telefone": "11 9 8765-4321"
+        }
     }
 }

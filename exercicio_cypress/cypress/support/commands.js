@@ -36,7 +36,7 @@ Cypress.Commands.add("removerContato", (nome) => {
 
   cy.wait(500);
 
-  cy.contains('li', nome).should('not.exist');
+  cy.contains('.contato', nome).should('not.exist');
 });
 
 // Comando para limpar todos os contatos

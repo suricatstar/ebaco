@@ -49,28 +49,5 @@ describe("CRUD de Contatos", () => {
     cy.removerContato(nome);
     cy.contains("li", nome).should("not.exist");
   });
-
-  it("Deve realizar fluxo completo CRUD", () => {
-    const { nome, email, telefone } = contatos.contatoTeste;
-    const {
-      nome: novoNome,
-      email: novoEmail,
-      telefone: novoTelefone,
-    } = contatos.contatoEditado;
-
-    // CREATE
-    cy.adicionarContato(nome, telefone, email);
-    cy.validarContatoExiste(nome);
-
-    // READ
-    cy.contains(".contato", nome).should("be.visible");
-
-    // UPDATE
-    cy.editarContato(nome, novoNome, novoEmail, novoTelefone);
-    cy.validarContatoExiste(novoNome);
-
-    // DELETE
-    cy.removerContato(novoNome);
-    cy.contains("li", novoNome).should("not.exist");
-  });
+ 
 });
